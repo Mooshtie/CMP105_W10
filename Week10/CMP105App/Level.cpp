@@ -6,7 +6,7 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	input = in;
 
 	// initialise game objects
-
+	MarioTiles.setWindow(window);
 }
 
 Level::~Level()
@@ -30,6 +30,8 @@ void Level::update(float dt)
 void Level::render()
 {
 	beginDraw();
+
+	MarioTiles.render(window);
 
 	endDraw();
 }

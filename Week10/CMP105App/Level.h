@@ -4,6 +4,7 @@
 #include "Framework/Input.h"
 #include <string>
 #include <iostream>
+#include "Tiles.h"
 
 
 class Level{
@@ -23,4 +24,6 @@ private:
 	// Default variables for level class.
 	sf::RenderWindow* window;
 	Input* input;
+
+	Tiles MarioTiles;
 };

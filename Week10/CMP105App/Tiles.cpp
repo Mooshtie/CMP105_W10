@@ -5,8 +5,6 @@ Tiles::Tiles()
 	tileMap.loadTexture("gfx/marioTiles.png");
 
 	//applying the tileSet to the tiles
-	GameObject tile;
-	std::vector<GameObject> tiles;
 	for (int i = 0; i < 7; i++)
 	{
 		tile.setSize(sf::Vector2f(32, 32));
@@ -51,4 +49,20 @@ Tiles::~Tiles()
 void Tiles::render(sf::RenderWindow* window)
 {
 	tileMap.render(window);
+}
+
+void Tiles::collision(GameObject* player)
+{
+	world = tileMap.getLevel();
+	for (int i = 0; i < (int)world->size(); i++)
+	{
+		// if collision check should occur
+		if ((*world)[i].isCollider())
+		{
+			if (Collision::checkBoundingBox(player, &(*world)[i]))
+			{
+				player->collisionResponse(&(*world)[i]);
+			}
+		}
+	}
 }

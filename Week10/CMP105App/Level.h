@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include "Tiles.h"
+#include "Player.h"
 
 
 class Level{
@@ -25,5 +26,7 @@ private:
 	sf::RenderWindow* window;
 	Input* input;
 
-	Tiles MarioTiles;
+	Tiles marioTiles;
+	Player shroom;
+	sf::Texture shroomTexture;
 };

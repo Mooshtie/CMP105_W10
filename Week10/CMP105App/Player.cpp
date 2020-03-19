@@ -15,7 +15,7 @@ Player::~Player()
 void Player::handleInput(float dt)
 {
 	//jump!
-	if (input->isKeyDown(sf::Keyboard::Space))
+	if (input->isKeyDown(sf::Keyboard::Space) && isJumping == false)
 	{
 		stepVelocity = jumpVector;
 		isJumping = true;
@@ -48,11 +48,29 @@ void Player::update(float dt)
 	{
 		velocity.y = 0;
 		setPosition(getPosition().x, window->getSize().y - getSize().y);
+		isJumping = false;
 	}
 }
 
 void Player::collisionResponse(GameObject* collider)
 {
-	velocity.y = 0; 
-	setPosition(getPosition().x, collider->getPosition().y - getSize().y); 
+	sf::Vector2f pos = sf::Vector2f(collider->getPosition().x + (collider->getSize().x / 2), collider->getPosition().y + (collider->getSize().y / 2));
+	if (std::abs(pos.x) > std::abs(pos.y))
+	{
+		if (pos.x - collider->getPosition().x > 0)
+		{
+			setPosition(sf::Vector2f(collider->getPosition().x + collider->getSize().x, getPosition().y));
+		}
+		else
+		{
+			setPosition(sf::Vector2f(collider->getPosition().x, getPosition().y));
+		}
+		isJumping = false;
+	}
+	else
+	{
+		velocity.y = 0;
+		setPosition(getPosition().x, collider->getPosition().y - getSize().y);
+		isJumping = false;
+	}
 }
